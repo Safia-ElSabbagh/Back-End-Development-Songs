@@ -57,4 +57,5 @@ def health():
 
 @app.route("/song", methods=["GET"])
 def get_songs():
-    return jsonify(songs_list), 200
+    songs = list(db.songs.find())
+    return parse_json(songs), 200
