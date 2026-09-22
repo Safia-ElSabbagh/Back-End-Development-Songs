@@ -59,3 +59,18 @@ def health():
 def get_songs():
     songs = list(db.songs.find())
     return parse_json(songs), 200
+
+@app.route("/song/<int:id>", methods=["PUT"])
+def update_song(id):
+    song = request.get_json()
+
+    result = db.songs.update_one(
+        {"id": id},
+        {"$set": song}
+    )
+
+    if result.matched_count == 0:
+        return {"message": "Song not found"}, 404
+
+    updated_song = db.songs.find_one({"id": id})
+    return parse_json(updated_song), 200
