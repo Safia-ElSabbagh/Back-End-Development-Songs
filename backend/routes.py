@@ -54,3 +54,7 @@ def parse_json(data):
 @app.route("/health", methods=["GET"])
 def health():
     return {"status": "OK"}, 200
+
+@app.route("/song", methods=["GET"])
+def get_songs():
+    return jsonify(songs_list), 200
